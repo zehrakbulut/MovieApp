@@ -31,10 +31,12 @@ namespace MovieApp.Infrastructure.Repositories
 			return await _context.MovieActors.ToListAsync();
 		}
 
-		public async Task<MovieActor> GetByIdAsync(int id)
+		public async Task<MovieActor> GetByIdAsync(int movieId, int actorId)
 		{
-			return await _context.MovieActors.FindAsync();
+			return await _context.MovieActors
+				.FirstOrDefaultAsync(ma => ma.MovieId == movieId && ma.ActorId == actorId);
 		}
+
 
 		public async Task UpdateAsync(MovieActor movieActor)
 		{

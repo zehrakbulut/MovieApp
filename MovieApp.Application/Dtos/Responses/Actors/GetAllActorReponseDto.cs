@@ -1,6 +1,6 @@
 ﻿namespace MovieApp.Application.Dtos.Responses.Actors
 {
-	public class GetAllActorRepositoryDto
+	public class GetAllActorReponseDto
 	{
 		public List<GetByIdActorResponseDto> Actors { get; set; }
 	}
