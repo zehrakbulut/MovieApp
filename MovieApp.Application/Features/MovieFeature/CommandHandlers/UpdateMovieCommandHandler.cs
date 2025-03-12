@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using MovieApp.Application.Dtos.Responses.Movies;
 using MovieApp.Application.Features.MovieFeature.Commands;
 using MovieApp.Domain.Interfaces;
@@ -8,10 +9,12 @@ namespace MovieApp.Application.Features.MovieFeature.CommandHandlers
 	public class UpdateMovieCommandHandler : IRequestHandler<UpdateMovieCommand, UpdateMovieResponseDto>
 	{
 		private readonly IMovieRepository _movieRepository;
+		private readonly IMapper _mapper;
 
-		public UpdateMovieCommandHandler(IMovieRepository movieRepository)
+		public UpdateMovieCommandHandler(IMovieRepository movieRepository, IMapper mapper)
 		{
 			_movieRepository = movieRepository;
+			_mapper = mapper;
 		}
 
 		public async Task<UpdateMovieResponseDto> Handle(UpdateMovieCommand request, CancellationToken cancellationToken)
@@ -19,19 +22,9 @@ namespace MovieApp.Application.Features.MovieFeature.CommandHandlers
 			var movie = await _movieRepository.GetByIdAsync(request.Id);
 			if (movie == null) return new UpdateMovieResponseDto { Success = false };
 
-			movie.Id = request.Id;
-			movie.Title = request.Title;
-			movie.Description = request.Description;
-			movie.GenreId = request.GenreId;
-			movie.DirectorId = request.DirectorId;
-
+			_mapper.Map(request,movie);
 			await _movieRepository.UpdateAsync(movie);
-			return new UpdateMovieResponseDto
-			{
-				Success = true,
-				Title = request.Title,
-				Description = request.Description
-			};
+			return _mapper.Map<UpdateMovieResponseDto>(request);
 		}
 	}
 }

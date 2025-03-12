@@ -2,8 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using MovieApp.Domain.Interfaces;
 using MovieApp.Infrastructure.Context;
 using MovieApp.Infrastructure.Repositories;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 builder.Services.AddDbContext<DbMovieContext>(options =>
 	options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));

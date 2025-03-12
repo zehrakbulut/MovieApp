@@ -1,29 +1,27 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using MovieApp.Application.Dtos.Responses.Reviews;
 using MovieApp.Application.Features.ReviewFeature.Queries;
 using MovieApp.Domain.Interfaces;
+using MovieApp.Domain.Models.Tables;
 
 namespace MovieApp.Application.Features.ReviewFeature.QueryHandlers
 {
 	public class GetAllReviewQueryHandler : IRequestHandler<GetAllReviewQuery, GetAllReviewResponseDto>
 	{
 		private readonly IReviewRepository _reviewRepository;
+		private readonly IMapper _mapper;
 
-		public GetAllReviewQueryHandler(IReviewRepository reviewRepository)
+		public GetAllReviewQueryHandler(IReviewRepository reviewRepository, IMapper mapper)
 		{
 			_reviewRepository = reviewRepository;
+			_mapper = mapper;
 		}
 
 		public async Task<GetAllReviewResponseDto> Handle(GetAllReviewQuery request, CancellationToken cancellationToken)
 		{
 			var reviews = await _reviewRepository.GetAllAsync();
-			var reviewResponse = reviews.Select(review => new GetByIdReviewResponseDto
-			{
-				Id = review.Id,
-				Comment = review.Comment,
-				MovieId = review.MovieId,
-				UserId = review.UserId
-			}).ToList();
+			var reviewResponse = _mapper.Map<IEnumerable<GetByIdReviewResponseDto>>(reviews).ToList();
 
 			return new GetAllReviewResponseDto { Reviews = reviewResponse };
 		}

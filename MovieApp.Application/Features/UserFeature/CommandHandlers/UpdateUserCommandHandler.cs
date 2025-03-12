@@ -1,17 +1,20 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using MovieApp.Application.Dtos.Responses.Users;
 using MovieApp.Application.Features.UserFeature.Commands;
 using MovieApp.Domain.Interfaces;
+using MovieApp.Domain.Models.Tables;
 
 namespace MovieApp.Application.Features.UserFeature.CommandHandlers
 {
 	public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UpdateUserResponseDto>
 	{
 		private readonly IUserRepository _userRepository;
-
-		public UpdateUserCommandHandler(IUserRepository userRepository)
+		private readonly IMapper _mapper;
+		public UpdateUserCommandHandler(IUserRepository userRepository, IMapper mapper)
 		{
 			_userRepository = userRepository;
+			_mapper = mapper;
 		}
 
 		public async Task<UpdateUserResponseDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
@@ -19,13 +22,9 @@ namespace MovieApp.Application.Features.UserFeature.CommandHandlers
 			var user = await _userRepository.GetByIdAsync(request.Id);
 			if (user == null) return new UpdateUserResponseDto { Success = false };
 
+			_mapper.Map(request, user);
 			await _userRepository.UpdateAsync(user);
-			return new UpdateUserResponseDto
-			{
-				Success = true,
-				Email = request.Email,
-				Username = request.Username
-			};
+			return _mapper.Map<UpdateUserResponseDto>(user);
 		}
 	}
 }

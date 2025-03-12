@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using MovieApp.Application.Dtos.Responses.Genres;
 using MovieApp.Application.Features.GenreFeature.Commands;
 using MovieApp.Domain.Interfaces;
@@ -9,26 +10,19 @@ namespace MovieApp.Application.Features.GenreFeature.CommandHandlers
 	public class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, CreateGenreResponseDto>
 	{
 		private readonly IGenreRepository _genreRepository;
+		private readonly IMapper _mapper;
 
-		public CreateGenreCommandHandler(IGenreRepository genreRepository)
+		public CreateGenreCommandHandler(IGenreRepository genreRepository, IMapper mapper)
 		{
 			_genreRepository = genreRepository;
+			_mapper = mapper;
 		}
 
 		public async Task<CreateGenreResponseDto> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
 		{
-			var genre = new Genre
-			{
-				Name = request.Name
-			};
-
+			var genre = _mapper.Map<Genre>(request);
 			await _genreRepository.AddAsync(genre);
-
-			return new CreateGenreResponseDto
-			{
-				Success = true,
-				Name = genre.Name
-			};
+			return _mapper.Map<CreateGenreResponseDto>(genre);
 		}
 	}
 }

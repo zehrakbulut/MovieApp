@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using MovieApp.Application.Dtos.Responses.MovieActors;
 using MovieApp.Application.Features.MovieActorFeature.Commands;
 using MovieApp.Domain.Interfaces;
@@ -9,23 +10,19 @@ namespace MovieApp.Application.Features.MovieActorFeature.CommandHandlers
 	public class CreateMovieActorCommandHandler : IRequestHandler<CreateMovieActorCommand, CreateMovieActorResponseDto>
 	{
 		private readonly IMovieActorRepository _movieActorRepository;
+		private readonly IMapper _mapper;
 
-		public CreateMovieActorCommandHandler(IMovieActorRepository movieActorRepository)
+		public CreateMovieActorCommandHandler(IMovieActorRepository movieActorRepository, IMapper mapper)
 		{
 			_movieActorRepository = movieActorRepository;
+			_mapper = mapper;
 		}
 
 		public async Task<CreateMovieActorResponseDto> Handle(CreateMovieActorCommand request, CancellationToken cancellationToken)
 		{
-			var movieActor = new MovieActor
-			{
-				MovieId = request.MovieId,
-				ActorId = request.ActorId,
-				Role = request.Role
-			};
-
+			var movieActor = _mapper.Map<MovieActor>(request);
 			await _movieActorRepository.AddAsync(movieActor);
-			return new CreateMovieActorResponseDto { Success = true, Role = request.Role };
+			return _mapper.Map<CreateMovieActorResponseDto>(movieActor);
 		}
 	}
 }
