@@ -36,7 +36,7 @@ namespace MovieApp.Api.Controllers
 			return Ok(response);
 		}
 
-		[HttpGet("review/{userId}/reviews")]
+		[HttpGet("users/{userId}/reviews")]
 		public async Task<IActionResult> GetUserReview(int userId)
 		{
 			GetUserReviewQuery query = new GetUserReviewQuery { UserId = userId };
