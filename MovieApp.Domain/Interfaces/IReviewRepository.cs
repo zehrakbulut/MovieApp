@@ -6,6 +6,7 @@ namespace MovieApp.Domain.Interfaces
 	{
 		Task<Review> GetByIdAsync(int id);
 		Task<IEnumerable<Review>> GetAllAsync();
+		Task<Review> GetUserReviewAsync(int userId);
 		Task AddAsync(Review review);
 		Task UpdateAsync(Review review);
 		Task DeleteAsync(Review review);

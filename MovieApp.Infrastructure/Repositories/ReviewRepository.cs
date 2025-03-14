@@ -36,6 +36,14 @@ namespace MovieApp.Infrastructure.Repositories
 			return await _context.Reviews.FindAsync(id);
 		}
 
+		public async Task<Review> GetUserReviewAsync(int userId)
+		{
+			return await _context.Reviews
+						 .Include(r => r.User)  
+						 .Include(r => r.Movie) 
+						 .FirstOrDefaultAsync(r => r.UserId == userId);
+		}
+
 		public async Task UpdateAsync(Review review)
 		{
 			_context.Update(review);

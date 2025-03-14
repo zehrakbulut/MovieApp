@@ -24,6 +24,11 @@ namespace MovieApp.Application.Mapping
 
 			CreateMap<GetByIdReviewQuery, GetByIdReviewResponseDto>();
 			CreateMap<Review, GetByIdReviewResponseDto>();
+
+			CreateMap<Review, GetUserReviewResponseDto>()
+				.ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.User.Username))
+				.ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Movie.Title))
+				.ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Movie.Description));
 		}
 	}
 }

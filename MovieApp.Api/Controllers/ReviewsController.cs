@@ -36,6 +36,15 @@ namespace MovieApp.Api.Controllers
 			return Ok(response);
 		}
 
+		[HttpGet("review/{userId}/reviews")]
+		public async Task<IActionResult> GetUserReview(int userId)
+		{
+			GetUserReviewQuery query = new GetUserReviewQuery { UserId = userId };
+
+			var response = await _mediator.Send(query);
+			return Ok(response);
+		}
+
 		[HttpPost]
 		public async Task<IActionResult> CreateReview([FromBody] CreateReviewRequestDto model)
 		{
