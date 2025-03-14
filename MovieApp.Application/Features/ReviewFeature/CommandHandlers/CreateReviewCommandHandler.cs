@@ -22,7 +22,11 @@ namespace MovieApp.Application.Features.ReviewFeature.CommandHandlers
 		{
 			var review = _mapper.Map<Review>(request);
 			await _reviewRepository.AddAsync(review);
-			return _mapper.Map<CreateReviewResponseDto>(review);
+			return new CreateReviewResponseDto
+			{
+				Success = true,
+				Comment = review.Comment
+			};
 		}
 	}
 }

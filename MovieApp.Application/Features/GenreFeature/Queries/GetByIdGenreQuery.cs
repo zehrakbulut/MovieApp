@@ -6,6 +6,5 @@ namespace MovieApp.Application.Features.GenreFeature.Queries
 	public class GetByIdGenreQuery : IRequest<GetByIdGenreResponseDto>
 	{
 		public int Id { get; set; }
-		public string Name { get; set; }
 	}
 }

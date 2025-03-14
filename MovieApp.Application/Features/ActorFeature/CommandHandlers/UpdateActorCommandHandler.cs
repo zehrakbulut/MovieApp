@@ -25,8 +25,12 @@ namespace MovieApp.Application.Features.ActorFeature.CommandHandlers
 
 			_mapper.Map(request, actor);
 			await _actorRepository.UpdateAsync(actor);
-			return _mapper.Map<UpdateActorResponseDto>(actor);
-
+			return new UpdateActorResponseDto
+			{
+				Success = true,
+				Name = actor.Name,
+				Nationality = actor.Nationality
+			};
 		}
 	}
 }

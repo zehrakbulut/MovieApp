@@ -24,7 +24,11 @@ namespace MovieApp.Application.Features.GenreFeature.CommandHandlers
 
 			_mapper.Map(request, genre);
 			await _genreRepository.UpdateAsync(genre);
-			return _mapper.Map<UpdateGenreResponseDto>(genre);
+			return new UpdateGenreResponseDto
+			{
+				Success = true,
+				Name = genre.Name
+			};
 		}
 	}
 }

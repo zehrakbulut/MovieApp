@@ -2,7 +2,7 @@
 {
 	public class CreateActorResponseDto
 	{
-		public bool Success { get; set; }
+		public bool IsSuccess { get; set; }
 		public string Name { get; set; }
 		public string Nationality { get; set; }
 	}

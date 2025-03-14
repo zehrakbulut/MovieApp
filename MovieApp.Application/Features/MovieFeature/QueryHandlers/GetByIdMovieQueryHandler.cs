@@ -19,9 +19,15 @@ namespace MovieApp.Application.Features.MovieFeature.QueryHandlers
 
 		public async Task<GetByIdMovieResponseDto> Handle(GetByIdMovieQuery request, CancellationToken cancellationToken)
 		{
-			await _movieRepository.GetByIdAsync(request.Id);
+			var query = await _movieRepository.GetByIdAsync(request.Id);
 
-			return _mapper.Map<GetByIdMovieResponseDto>(request);
+			return new GetByIdMovieResponseDto
+			{
+				Id = query.Id,
+				Title = query.Title,
+				GenreId = query.GenreId,
+				DirectorId = query.DirectorId
+			};
 		}
 	}
 }

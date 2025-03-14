@@ -22,7 +22,13 @@ namespace MovieApp.Application.Features.ActorFeature.CommandHandlers
 		{
 			var actor = _mapper.Map<Actor>(request);
 			await _actorRepository.AddAsync(actor);
-			return _mapper.Map<CreateActorResponseDto>(actor);
+			return new CreateActorResponseDto
+			{
+				IsSuccess = true,
+				Name = actor.Name,
+				Nationality = actor.Nationality
+			};
+
 		}
 	}
 }

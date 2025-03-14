@@ -3,7 +3,6 @@ using MediatR;
 using MovieApp.Application.Dtos.Responses.Reviews;
 using MovieApp.Application.Features.ReviewFeature.Queries;
 using MovieApp.Domain.Interfaces;
-using MovieApp.Domain.Models.Tables;
 
 namespace MovieApp.Application.Features.ReviewFeature.QueryHandlers
 {

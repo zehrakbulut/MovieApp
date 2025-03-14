@@ -2,7 +2,7 @@
 {
 	public class CreateGenreResponseDto
 	{
-		public bool Success { get; set; }
+		public bool IsSuccess { get; set; }
 		public string Name { get; set; }
 	}
 }

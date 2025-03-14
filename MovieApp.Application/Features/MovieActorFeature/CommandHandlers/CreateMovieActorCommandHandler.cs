@@ -22,7 +22,11 @@ namespace MovieApp.Application.Features.MovieActorFeature.CommandHandlers
 		{
 			var movieActor = _mapper.Map<MovieActor>(request);
 			await _movieActorRepository.AddAsync(movieActor);
-			return _mapper.Map<CreateMovieActorResponseDto>(movieActor);
+			return new CreateMovieActorResponseDto
+			{
+				Success = true,
+				Role = movieActor.Role
+			};
 		}
 	}
 }

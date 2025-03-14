@@ -19,8 +19,14 @@ namespace MovieApp.Application.Features.ReviewFeature.QueryHandlers
 
 		public async Task<GetByIdReviewResponseDto> Handle(GetByIdReviewQuery request, CancellationToken cancellationToken)
 		{
-			await _reviewRepository.GetByIdAsync(request.Id);
-			return _mapper.Map<GetByIdReviewResponseDto>(request);
+			var query = await _reviewRepository.GetByIdAsync(request.Id);
+			return new GetByIdReviewResponseDto
+			{
+				Id = query.Id,
+				UserId = query.UserId,
+				MovieId = query.MovieId,
+				Comment = query.Comment
+			};
 		}
 	}
 }

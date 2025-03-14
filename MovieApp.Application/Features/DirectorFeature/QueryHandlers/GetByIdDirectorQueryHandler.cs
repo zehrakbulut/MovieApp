@@ -19,8 +19,13 @@ namespace MovieApp.Application.Features.DirectorFeature.QueryHandlers
 
 		public async Task<GetByIdDirectorResponseDto> Handle(GetByIdDirectorQuery request, CancellationToken cancellationToken)
 		{
-			await _directorRepository.GetByIdAsync(request.Id);
-			return _mapper.Map<GetByIdDirectorResponseDto>(request);
+			var director = await _directorRepository.GetByIdAsync(request.Id);
+			return new GetByIdDirectorResponseDto
+			{
+				Id = director.Id,
+				Name = director.Name,
+				Nationality = director.Nationality
+			};
 		}
 	}
 }

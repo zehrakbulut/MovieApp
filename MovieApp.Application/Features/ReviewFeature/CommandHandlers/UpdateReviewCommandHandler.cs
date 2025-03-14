@@ -24,7 +24,11 @@ namespace MovieApp.Application.Features.ReviewFeature.CommandHandlers
 
 			_mapper.Map(request, review);	
 			await _reviewRepository.UpdateAsync(review);
-			return _mapper.Map<UpdateReviewResponseDto>(review);
+			return new UpdateReviewResponseDto
+			{
+				Success = true,
+				Comment = review.Comment
+			};
 		}
 	}
 }

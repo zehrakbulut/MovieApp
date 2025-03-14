@@ -22,7 +22,12 @@ namespace MovieApp.Application.Features.MovieFeature.CommandHandlers
 		{
 			var movie = _mapper.Map<Movie>(request);
 			await _movieRepository.AddAsync(movie);
-			return _mapper.Map<CreateMovieResponseDto>(movie);
+			return new CreateMovieResponseDto
+			{
+				Success = true,
+				Description = movie.Description,
+				Title = movie.Title
+			};
 		}
 	}
 }

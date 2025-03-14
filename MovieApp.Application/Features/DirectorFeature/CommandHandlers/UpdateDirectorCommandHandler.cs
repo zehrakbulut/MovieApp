@@ -25,7 +25,12 @@ namespace MovieApp.Application.Features.DirectorFeature.CommandHandlers
 
 			_mapper.Map(request,director);
 			await _directorRepository.UpdateAsync(director);
-			return _mapper.Map<UpdateDirectorResponseDto>(director);
+			return new UpdateDirectorResponseDto
+			{
+				Success = true,
+				Name = director.Name,
+				Nationality = director.Nationality
+			};
 		}
 	}
 }

@@ -19,12 +19,17 @@ namespace MovieApp.Application.Features.MovieActorFeature.CommandHandlers
 
 		public async Task<UpdateMovieActorResponseDto> Handle(UpdateMovieActorCommand request, CancellationToken cancellationToken)
 		{
-			var movieActor = await _movieActorRepository.GetByIdAsync(request.ActorId, request.MovieId);
+			var movieActor = await _movieActorRepository.GetByIdAsync(request.MovieId,request.ActorId);
+
 			if (movieActor == null) return new UpdateMovieActorResponseDto { Success = false };
 
 			_mapper.Map(request, movieActor);
 			await _movieActorRepository.UpdateAsync(movieActor);
-			return _mapper.Map<UpdateMovieActorResponseDto>(movieActor);
+			return new UpdateMovieActorResponseDto
+			{
+				Success = true,
+				Role = movieActor.Role
+			};
 		}
 	}
 }

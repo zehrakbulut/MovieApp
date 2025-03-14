@@ -22,7 +22,12 @@ namespace MovieApp.Application.Features.DirectorFeature.CommandHandlers
 		{
 			var director = _mapper.Map<Director>(request);
 			await _directorRepository.AddAsync(director);
-			return _mapper.Map<CreateDirectorResponseDto>(request);
+			return new CreateDirectorResponseDto
+			{
+				IsSuccess = true,
+				Name = director.Name,
+				Nationality = director.Nationality
+			};
 		}
 	}
 }

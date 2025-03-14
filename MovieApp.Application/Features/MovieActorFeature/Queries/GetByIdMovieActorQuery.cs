@@ -7,6 +7,5 @@ namespace MovieApp.Application.Features.MovieActorFeature.Queries
 	{
 		public int MovieId { get; set; }
 		public int ActorId { get; set; }
-		public string Role { get; set; }
 	}
 }

@@ -3,7 +3,6 @@ using MediatR;
 using MovieApp.Application.Dtos.Responses.Users;
 using MovieApp.Application.Features.UserFeature.Commands;
 using MovieApp.Domain.Interfaces;
-using MovieApp.Domain.Models.Tables;
 
 namespace MovieApp.Application.Features.UserFeature.CommandHandlers
 {
@@ -24,7 +23,12 @@ namespace MovieApp.Application.Features.UserFeature.CommandHandlers
 
 			_mapper.Map(request, user);
 			await _userRepository.UpdateAsync(user);
-			return _mapper.Map<UpdateUserResponseDto>(user);
+			return new UpdateUserResponseDto
+			{
+				Success = true,
+				Username = user.Username,
+				Email = user.Email
+			};
 		}
 	}
 }

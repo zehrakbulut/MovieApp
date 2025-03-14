@@ -22,7 +22,11 @@ namespace MovieApp.Application.Features.GenreFeature.CommandHandlers
 		{
 			var genre = _mapper.Map<Genre>(request);
 			await _genreRepository.AddAsync(genre);
-			return _mapper.Map<CreateGenreResponseDto>(genre);
+			return new CreateGenreResponseDto
+			{
+				IsSuccess = true,
+				Name = genre.Name
+			};
 		}
 	}
 }

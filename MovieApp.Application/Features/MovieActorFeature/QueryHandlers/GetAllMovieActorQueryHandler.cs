@@ -20,8 +20,8 @@ namespace MovieApp.Application.Features.MovieActorFeature.QueryHandlers
 		public async Task<GetAllMovieActorResponseDto> Handle(GetAllMovieActorQuery request, CancellationToken cancellationToken)
 		{
 			var movieActors = await _movieActorRepository.GetAllAsync();
-			var movieActorResponse = _mapper.Map<IEnumerable<GetByIdMovieActorResponseDto>>(movieActors).ToList();
 
+			var movieActorResponse = _mapper.Map<IEnumerable<GetByIdMovieActorResponseDto>>(movieActors).ToList();
 			return new GetAllMovieActorResponseDto { MovieActors = movieActorResponse };
 		}
 	}

@@ -21,7 +21,7 @@ namespace MovieApp.Application.Features.DirectorFeature.QueryHandlers
 		{
 			var directors = await _directorRepository.GetAllAsync();
 
-			var directorResponse = _mapper.Map<IEnumerable<GetByIdDirectorResponseDto>>(request).ToList();
+			var directorResponse = _mapper.Map<IEnumerable<GetByIdDirectorResponseDto>>(directors).ToList();
 			return new GetAllDirectorResponseDto { Directors = directorResponse };
 		}
 	}

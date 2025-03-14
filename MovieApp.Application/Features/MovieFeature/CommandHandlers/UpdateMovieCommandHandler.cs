@@ -20,11 +20,17 @@ namespace MovieApp.Application.Features.MovieFeature.CommandHandlers
 		public async Task<UpdateMovieResponseDto> Handle(UpdateMovieCommand request, CancellationToken cancellationToken)
 		{
 			var movie = await _movieRepository.GetByIdAsync(request.Id);
+
 			if (movie == null) return new UpdateMovieResponseDto { Success = false };
 
 			_mapper.Map(request,movie);
 			await _movieRepository.UpdateAsync(movie);
-			return _mapper.Map<UpdateMovieResponseDto>(request);
+			return new UpdateMovieResponseDto
+			{
+				Success = true,
+				Title = movie.Title,
+				Description = movie.Description
+			};
 		}
 	}
 }

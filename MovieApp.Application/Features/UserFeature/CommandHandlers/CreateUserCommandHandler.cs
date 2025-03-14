@@ -22,7 +22,12 @@ namespace MovieApp.Application.Features.UserFeature.CommandHandlers
 		{
 			var user = _mapper.Map<User>(request);
 			await _userRepository.AddAsync(user);
-			return _mapper.Map<CreateUserResponseDto>(user);
+			return new CreateUserResponseDto
+			{
+				Success = true,
+				Username = user.Username,
+				Email = user.Email
+			};
 		}
 	}
 }

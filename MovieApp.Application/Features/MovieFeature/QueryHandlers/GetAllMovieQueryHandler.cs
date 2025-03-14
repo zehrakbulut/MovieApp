@@ -21,7 +21,7 @@ namespace MovieApp.Application.Features.MovieFeature.QueryHandlers
 		{
 			var movies = await _movieRepository.GetAllAsync();
 
-			var movieResponse = _mapper.Map<IEnumerable<GetByIdMovieResponseDto>>(request).ToList();
+			var movieResponse = _mapper.Map<IEnumerable<GetByIdMovieResponseDto>>(movies).ToList();
 			return new GetAllMovieResponseDto { Movies = movieResponse };
 		}
 	}

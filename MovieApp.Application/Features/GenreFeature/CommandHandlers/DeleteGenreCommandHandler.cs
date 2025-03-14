@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using MovieApp.Application.Dtos.Responses.Genres;
 using MovieApp.Application.Features.GenreFeature.Commands;
 using MovieApp.Domain.Interfaces;
@@ -8,10 +9,12 @@ namespace MovieApp.Application.Features.GenreFeature.CommandHandlers
 	public class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommand, DeleteGenreResponseDto>
 	{
 		private readonly IGenreRepository _genreRepository;
+		private readonly IMapper _mapper;
 
-		public DeleteGenreCommandHandler(IGenreRepository genreRepository)
+		public DeleteGenreCommandHandler(IGenreRepository genreRepository, IMapper mapper)
 		{
 			_genreRepository = genreRepository;
+			_mapper = mapper;
 		}
 
 		public async Task<DeleteGenreResponseDto> Handle(DeleteGenreCommand request, CancellationToken cancellationToken)
