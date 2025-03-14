@@ -36,6 +36,15 @@ namespace MovieApp.Infrastructure.Repositories
 			return await _context.Movies.FindAsync(id);
 		}
 
+		public async Task<List<Movie>> GetTopMovieAsync(int count)
+		{
+			return await _context.Movies
+				.OrderByDescending(m => m.Rating)
+				.ThenBy(m => m.Title)
+				.Take(count)
+				.ToListAsync();
+		}
+
 		public async Task UpdateAsync(Movie movie)
 		{
 			_context.Update(movie);

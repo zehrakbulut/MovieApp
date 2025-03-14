@@ -25,8 +25,7 @@ namespace MovieApp.Application.Features.MovieFeature.QueryHandlers
 			{
 				Id = query.Id,
 				Title = query.Title,
-				GenreId = query.GenreId,
-				DirectorId = query.DirectorId
+				Rating = query.Rating
 			};
 		}
 	}

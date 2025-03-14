@@ -8,5 +8,6 @@ namespace MovieApp.Application.Features.ReviewFeature.Commands
 		public int MovieId { get; set; }
 		public int UserId { get; set; }
 		public string Comment { get; set; }
+		public decimal Rating { get; set; }
 	}
 }

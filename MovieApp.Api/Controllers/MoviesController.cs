@@ -33,7 +33,16 @@ namespace MovieApp.Api.Controllers
 			GetByIdMovieQuery query = new GetByIdMovieQuery { Id = id };
 
 			var response = await _mediator.Send(query);
-			return Ok(query);
+			return Ok(response);
+		}
+
+		[HttpGet("top-movie")]
+		public async Task<IActionResult> GetTopMovie(int count)
+		{
+			var query = new GetTopMovieQuery { Count = count };
+
+			var response = await _mediator.Send(query);
+			return Ok(response);
 		}
 
 		[HttpPost]

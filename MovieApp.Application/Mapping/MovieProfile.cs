@@ -24,6 +24,8 @@ namespace MovieApp.Application.Mapping
 
 			CreateMap<GetByIdMovieQuery, GetByIdMovieResponseDto>();
 			CreateMap<Movie, GetByIdMovieResponseDto>();
+
+			CreateMap<Movie, GetTopMovieResponseDto>();
 		}
 	}
 }

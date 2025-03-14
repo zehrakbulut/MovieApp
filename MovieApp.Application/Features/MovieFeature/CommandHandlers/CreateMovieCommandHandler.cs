@@ -26,7 +26,8 @@ namespace MovieApp.Application.Features.MovieFeature.CommandHandlers
 			{
 				Success = true,
 				Description = movie.Description,
-				Title = movie.Title
+				Title = movie.Title,
+				Rating = movie.Rating
 			};
 		}
 	}

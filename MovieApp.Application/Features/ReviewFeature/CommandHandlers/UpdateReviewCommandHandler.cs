@@ -27,7 +27,8 @@ namespace MovieApp.Application.Features.ReviewFeature.CommandHandlers
 			return new UpdateReviewResponseDto
 			{
 				Success = true,
-				Comment = review.Comment
+				Comment = review.Comment,
+				Rating = review.Rating
 			};
 		}
 	}
