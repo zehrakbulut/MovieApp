@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MovieApp.Application.Dtos.Requests.Reviews;
+using MovieApp.Application.Features.MovieFeature.Queries;
 using MovieApp.Application.Features.ReviewFeature.Commands;
 using MovieApp.Application.Features.ReviewFeature.Queries;
 
@@ -25,6 +26,19 @@ namespace MovieApp.Api.Controllers
 		{
 			var queries =await _mediator.Send(new GetAllReviewQuery());
 			return Ok(queries);
+		}
+
+		[HttpGet("movies/{most-review}/count = 3")]
+		public async Task<IActionResult> GetAllReview([FromQuery] bool mostReviewed = true, [FromQuery] int count = 3)
+		{
+			var query = new GetAllReviewQuery
+			{
+				MostReviewed = mostReviewed,
+				Count = count
+			};
+
+			var response = await _mediator.Send(query);
+			return Ok(response);
 		}
 
 		[HttpGet("{id}")]
