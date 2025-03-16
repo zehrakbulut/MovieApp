@@ -23,38 +23,37 @@ namespace MovieApp.Application.Features.ReviewFeature.QueryHandlers
 		public async Task<GetAllReviewResponseDto> Handle(GetAllReviewQuery request, CancellationToken cancellationToken)
 		{
 			var reviews = await _reviewRepository.GetAllAsync() ?? new List<Review>();
-
 			var movies = await _movieRepository.GetAllAsync();
-
 
 			if (request.MostReviewed)
 			{
 				var topMovies = reviews
 					.GroupBy(r => r.MovieId)
 					.Select(g =>
-				{
-					var movie = movies.FirstOrDefault(m => m.Id == g.Key);
-					return new
 					{
-						ReviewId = g.Key,
-						MovieId = g.Key,
-						Title = movie.Title,
-						CommentCount = g.Count(),
-						AverageRating = g.Average(r => r.Rating),
-						UserId = g.Select(r => r.UserId).ToList()
-					};
-				})
-				.OrderByDescending(g => g.CommentCount)
-				.Take(request.Count)
-				.ToList();
+						var movie = movies.FirstOrDefault(m => m.Id == g.Key);
+						return new
+						{
+							ReviewId = g.Key,
+							MovieId = g.Key,
+							Title = movie?.Title ?? "Bilinmeyen Film", 
+							CommentCount = g.Count(),
+							AverageRating = g.Average(r => r.Rating),
+							UserId = g.First().UserId 
+						};
+					})
+					.OrderBy(g => g.MovieId) 
+					.Take(request.Count)
+					.ToList();
 
 				var response = topMovies.Select(m => new GetByIdReviewResponseDto
 				{
 					Id = m.ReviewId,
 					MovieId = m.MovieId,
+					Title = m.Title,
 					Comment = $"Yorum Sayısı: {m.CommentCount}",
 					Rating = m.AverageRating,
-					Title = m.Title,
+					UserId = m.UserId 
 				}).ToList();
 
 				return new GetAllReviewResponseDto { Reviews = response };
