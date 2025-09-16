@@ -5,5 +5,6 @@ namespace MovieApp.Application.Features.MovieActorFeature.Queries
 {
 	public class GetAllMovieActorQuery : IRequest<GetAllMovieActorResponseDto>
 	{
+		public string Cast {  get; set; }
 	}
 }

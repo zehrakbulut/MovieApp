@@ -36,6 +36,15 @@ namespace MovieApp.Api.Controllers
 			return Ok(result);
 		}
 
+		[HttpGet("{movieId}/cast")]
+		public async Task<IActionResult> GetMovieCast(string cast)
+		{
+			var query = new GetAllMovieActorQuery { Cast = cast };
+
+			var result = await _mediator.Send(query);
+			return Ok(result);
+		}
+
 		[HttpPost]
 		public async Task<IActionResult> CreateMovieActor([FromBody] CreateMovieActorRequestDto model)
 		{
