@@ -193,6 +193,5 @@ COPY --from=build /app .
 ENTRYPOINT ["dotnet", "MovieApp.Api.dll"]
 ```
 
-**Happy Coding! 🚀**
 
 ZEHRA AKBULUT ♡♡♡
